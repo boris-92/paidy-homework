@@ -1,12 +1,10 @@
+import { Redirect } from 'expo-router';
 import React, { FC } from 'react';
-import { View, Text } from 'react-native';
 
 const Root: FC = () => {
-  return (
-    <View>
-      <Text>Root</Text>
-    </View>
-  );
+  const isAuthorized = false;
+
+  return <Redirect href={isAuthorized ? '/home' : '/login'} />;
 };
 
 export default Root;
