@@ -3,19 +3,19 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXConstants (17.0.2):
     - ExpoModulesCore
-  - Expo (52.0.0-preview.23):
+  - Expo (52.0.4):
     - ExpoModulesCore
-  - ExpoAsset (11.0.0):
+  - ExpoAsset (11.0.1):
     - ExpoModulesCore
   - ExpoBlur (14.0.1):
     - ExpoModulesCore
-  - ExpoFileSystem (18.0.1):
+  - ExpoFileSystem (18.0.2):
     - ExpoModulesCore
   - ExpoFont (13.0.1):
     - ExpoModulesCore
   - ExpoHaptics (14.0.0):
     - ExpoModulesCore
-  - ExpoHead (4.0.0-preview.14):
+  - ExpoHead (4.0.3):
     - ExpoModulesCore
   - ExpoKeepAwake (14.0.1):
     - ExpoModulesCore
@@ -23,7 +23,7 @@ PODS:
     - ExpoModulesCore
   - ExpoLocalAuthentication (15.0.1):
     - ExpoModulesCore
-  - ExpoModulesCore (2.0.0-preview.10):
+  - ExpoModulesCore (2.0.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -46,7 +46,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ExpoSplashScreen (0.29.4):
+  - ExpoSplashScreen (0.29.7):
     - ExpoModulesCore
   - ExpoSymbols (0.2.0):
     - ExpoModulesCore
@@ -2072,18 +2072,18 @@ SPEC CHECKSUMS:
   boost: 1dca942403ed9342f98334bf4c3621f011aa7946
   DoubleConversion: f16ae600a246532c4020132d54af21d0ddb2a385
   EXConstants: 33cb635065c7c1fe09a0fce5c8ddde8a0a2860c4
-  Expo: 22775a567db450535b91cace34cbb2f4fb54cf81
-  ExpoAsset: 9de2f325e8c97a4c6c2bc85e507ae7f0809c91aa
+  Expo: 250b6bc7a5c85c4b15babff1b1b2ca2c9f7dd549
+  ExpoAsset: 8138f2a9ec55ae1ad7c3871448379f7d97692d15
   ExpoBlur: 562b3da84d3cd79016c411671eaf71a404266415
-  ExpoFileSystem: 60313d0b54cb8242004525f37c9b85988194ae33
+  ExpoFileSystem: 10e1ccf88aef9f3cb5aea1a121272164a24edd6f
   ExpoFont: 7522d869d84ee2ee8093ee997fef5b86f85d856b
   ExpoHaptics: e636188d1d5f7ccb79f3c1bfab47aaf5a1768c73
-  ExpoHead: 623eed94c8c18775b0ff348c61efff82bb2bba65
+  ExpoHead: 503a4841a389a3443cfd3ea17c034b38d677ded5
   ExpoKeepAwake: 783e68647b969b210a786047c3daa7b753dcac1f
   ExpoLinking: 05ab69d3b5b1b0600d6a1a043d8d1ea3bb61a71a
   ExpoLocalAuthentication: fb519b5d39df0cc216e43fef3cc8e2db1930a01e
-  ExpoModulesCore: f085fa8306860953744e07577f5817dd22f94445
-  ExpoSplashScreen: 7342994e98c2c48b2ab69bbddeab59ef8bfe94b1
+  ExpoModulesCore: d5aa26f2ecb59e22c6c12e6053cd8468205b7983
+  ExpoSplashScreen: 03e2a6f2368723a7a4c8aa811fb8b9eba33d1533
   ExpoSymbols: 81d7f433d7a7b20658029eae524a4fa93627159e
   ExpoSystemUI: 7a9e9895c2621980ae57277c9d1903ad3fd41bb1
   ExpoWebBrowser: ea83cc6f03bec1938c3b8fb4dcb9df71960fba36
