@@ -8,8 +8,15 @@ const AuthLayout: FC = () => {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="home" />
+    <Stack>
+      <Stack.Screen
+        name="home"
+        options={{
+          title: 'ToDo:',
+          headerTransparent: true,
+          headerBlurEffect: 'regular',
+        }}
+      />
     </Stack>
   );
 };
