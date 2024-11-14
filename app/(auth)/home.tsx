@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
+
 import Composer, { ComposerProps } from '@/components/Composer/Composer';
-import ListItem from '@/components/ListItem/ListItem';
+import ListItem, { ListItemProps } from '@/components/ListItem/ListItem';
 import List, { ListProps } from '@/components/List/List';
 
 import useTodos, { Todo } from '@/hooks/useTodos';
@@ -8,15 +9,37 @@ import useTodos, { Todo } from '@/hooks/useTodos';
 const keyExtractor: ListProps<Todo>['keyExtractor'] = (item) => item.id;
 
 const Home: FC = () => {
-  const { todos, addItem, toggleItem, removeItem } = useTodos();
+  const { todos, addItem, toggleItem, updateItem, removeItem } = useTodos();
+  const [editingItem, setEditingItem] = useState<Todo | undefined>();
+
+  const handleListItemPress: ListItemProps['onPress'] = useCallback((item) => {
+    setEditingItem(item);
+  }, []);
 
   const handleAddPress: ComposerProps['onAddPress'] = (title) => {
-    addItem(title);
+    if (title) {
+      addItem(title);
+    }
   };
 
-  const handleUpdatePress = () => {};
+  const handleUpdatePress: ComposerProps['onUpdatePress'] = (id, title) => {
+    if (id && title) {
+      updateItem(id, title);
 
-  const handleListItemPress = () => {};
+      setEditingItem(undefined);
+    }
+  };
+
+  const handleDeletePress: ListItemProps['onDeletePress'] = useCallback(
+    (id) => {
+      removeItem(id);
+
+      if (id === editingItem?.id) {
+        setEditingItem(undefined);
+      }
+    },
+    [removeItem, editingItem?.id],
+  );
 
   return (
     <>
@@ -29,12 +52,12 @@ const Home: FC = () => {
             title={item.title}
             onPress={handleListItemPress}
             onCheckboxPress={toggleItem}
-            onDeletePress={removeItem}
+            onDeletePress={handleDeletePress}
           />
         )}
         keyExtractor={keyExtractor}
       />
-      <Composer onAddPress={handleAddPress} onUpdatePress={handleUpdatePress} />
+      <Composer editingItem={editingItem} onAddPress={handleAddPress} onUpdatePress={handleUpdatePress} />
     </>
   );
 };

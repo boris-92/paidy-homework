@@ -12,7 +12,7 @@ type CheckboxProps = {
 const Checkbox: FC<CheckboxProps> = ({ value, onPress }) => {
   return (
     <IconButton
-      name={value ? 'check' : 'refresh'}
+      name={value ? 'check' : 'minus'}
       backgroundColor={value ? COLORS.SUCCESS : COLORS.DISABLED}
       onPress={onPress}
     />

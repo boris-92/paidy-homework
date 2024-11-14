@@ -15,14 +15,15 @@ export type CustomIconButtonProps = ComponentProps<typeof SimpleLineIcons.Button
   size?: IconButtonSize;
 };
 
-const IconButton: FC<CustomIconButtonProps> = ({ size = IconButtonSize.M, ...rest }) => {
+const IconButton: FC<CustomIconButtonProps> = ({ size = IconButtonSize.M, disabled, ...rest }) => {
   return (
     <SimpleLineIcons.Button
       style={styles.container}
       iconStyle={styles.icon}
-      backgroundColor={COLORS.PRIMARY}
+      backgroundColor={disabled ? COLORS.DISABLED : COLORS.PRIMARY}
       borderRadius={100}
       size={size}
+      disabled={disabled}
       {...rest}
     />
   );
