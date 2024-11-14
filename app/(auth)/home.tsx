@@ -57,6 +57,7 @@ const Home: FC = () => {
         )}
         keyExtractor={keyExtractor}
         keyboardDismissMode={'on-drag'}
+        keyboardShouldPersistTaps={'handled'}
       />
       <Composer editingItem={editingItem} onAddPress={handleAddPress} onUpdatePress={handleUpdatePress} />
     </>
