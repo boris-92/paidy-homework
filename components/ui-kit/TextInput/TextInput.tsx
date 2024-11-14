@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { forwardRef } from 'react';
 import { TextInput, TextInputProps, View, ViewProps } from 'react-native';
 
 import styles from './styles';
@@ -7,12 +7,14 @@ export type CustomTextInputProps = TextInputProps & {
   containerStyle?: ViewProps['style'];
 };
 
-const CustomTextInput: FC<CustomTextInputProps> = ({ containerStyle, ...rest }) => {
+const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(({ containerStyle, ...rest }, ref) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <TextInput style={styles.input} {...rest} />
+      <TextInput ref={ref} style={styles.input} {...rest} />
     </View>
   );
-};
+});
+
+CustomTextInput.displayName = 'CustomTextInput';
 
 export default CustomTextInput;

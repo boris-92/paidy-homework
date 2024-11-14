@@ -56,6 +56,7 @@ const Home: FC = () => {
           />
         )}
         keyExtractor={keyExtractor}
+        keyboardDismissMode={'on-drag'}
       />
       <Composer editingItem={editingItem} onAddPress={handleAddPress} onUpdatePress={handleUpdatePress} />
     </>

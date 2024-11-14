@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { View, TextInput as RNTextInput } from 'react-native';
 
 import TextInput, { CustomTextInputProps } from '../ui-kit/TextInput/TextInput';
 import IconButton from '../ui-kit/IconButton/IconButton';
@@ -16,12 +16,15 @@ export type ComposerProps = {
 
 const Composer: FC<ComposerProps> = ({ editingItem, onAddPress, onUpdatePress }) => {
   const [inputText, setInputText] = useState<string>('');
+  const inputRef = useRef<RNTextInput>(null);
 
   const isDisabled = !inputText;
 
   useEffect(() => {
     if (editingItem) {
       setInputText(editingItem.title);
+
+      inputRef?.current?.focus();
     }
   }, [editingItem]);
 
@@ -39,7 +42,7 @@ const Composer: FC<ComposerProps> = ({ editingItem, onAddPress, onUpdatePress })
 
   return (
     <View style={styles.container}>
-      <TextInput value={inputText} onChangeText={handleChange} containerStyle={styles.input} />
+      <TextInput ref={inputRef} value={inputText} onChangeText={handleChange} containerStyle={styles.input} />
       <IconButton name={editingItem ? 'refresh' : 'plus'} onPress={handleButtonPress} disabled={isDisabled} />
     </View>
   );
