@@ -23,7 +23,7 @@ const Composer: FC<ComposerProps> = ({ onAddPress, onUpdatePress }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput value={inputText} onChangeText={handleChange} style={styles.input} />
+      <TextInput value={inputText} onChangeText={handleChange} containerStyle={styles.input} />
       <IconButton
         name={'plus'} // or update
         onPress={handleButtonPress}

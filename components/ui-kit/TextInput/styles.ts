@@ -6,6 +6,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    fontSize: 18,
+    fontSize: 22,
+    fontWeight: '100',
   },
 });
