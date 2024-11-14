@@ -1,17 +1,21 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
+
+import storage, { StorageKeys } from '@/utils/storage';
 
 enum TodoActionEnum {
   ADD_ITEM = 'ADD_ITEM',
   TOGGLE_ITEM = 'TOGGLE_ITEM',
   REMOVE_ITEM = 'REMOVE_ITEM',
   UPDATE_ITEM = 'UPDATE_ITEM',
+  SET_TODOS = 'SET_TODOS',
 }
 
 type TodoAction =
   | { type: TodoActionEnum.ADD_ITEM; payload: { title: string } }
   | { type: TodoActionEnum.TOGGLE_ITEM; payload: { id: string } }
   | { type: TodoActionEnum.REMOVE_ITEM; payload: { id: string } }
-  | { type: TodoActionEnum.UPDATE_ITEM; payload: { id: string; title: string } };
+  | { type: TodoActionEnum.UPDATE_ITEM; payload: { id: string; title: string } }
+  | { type: TodoActionEnum.SET_TODOS; payload: TodoState };
 
 export type Todo = { id: string; title: string; isChecked: boolean };
 
@@ -27,12 +31,18 @@ const todoReducer = (state: TodoState, action: TodoAction): TodoState => {
       return state.filter((todo) => todo.id !== action.payload.id);
     case TodoActionEnum.UPDATE_ITEM:
       return state.map((todo) => (todo.id === action.payload.id ? { ...todo, title: action.payload.title } : todo));
+    case TodoActionEnum.SET_TODOS:
+      return action.payload;
     default:
       return state;
   }
 };
 
-const useTodos = () => {
+type UseTodosConfig = {
+  isPersistanceEnabled?: boolean;
+};
+
+const useTodos = ({ isPersistanceEnabled = true }: UseTodosConfig = {}) => {
   const [todos, dispatch] = useReducer<typeof todoReducer>(todoReducer, []);
 
   const addItem = useCallback((title: string) => {
@@ -50,6 +60,26 @@ const useTodos = () => {
   const updateItem = useCallback((id: string, title: string) => {
     dispatch({ type: TodoActionEnum.UPDATE_ITEM, payload: { id, title } });
   }, []);
+
+  useEffect(() => {
+    if (isPersistanceEnabled) {
+      const loadTodos = async () => {
+        const storedTodos = await storage.getItem<Todo[]>(StorageKeys.TODOS);
+
+        if (storedTodos) {
+          dispatch({ type: TodoActionEnum.SET_TODOS, payload: storedTodos });
+        }
+      };
+
+      loadTodos();
+    }
+  }, [isPersistanceEnabled]);
+
+  useEffect(() => {
+    if (isPersistanceEnabled) {
+      storage.setItem(StorageKeys.TODOS, todos);
+    }
+  }, [todos, isPersistanceEnabled]);
 
   return {
     todos,
