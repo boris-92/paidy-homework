@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
-import { TextInput as RNTextInput, View, ViewProps } from 'react-native';
+import { TextInput, TextInputProps, View, ViewProps } from 'react-native';
 
 import styles from './styles';
 
-export type TextInputProps = {
-  style?: ViewProps['style'];
+export type CustomTextInputProps = TextInputProps & {
+  containerStyle?: ViewProps['style'];
 };
 
-const TextInput: FC<TextInputProps> = ({ style }) => {
+const CustomTextInput: FC<CustomTextInputProps> = ({ containerStyle, ...rest }) => {
   return (
-    <View style={[styles.container, style]}>
-      <RNTextInput style={styles.input} />
+    <View style={[styles.container, containerStyle]}>
+      <TextInput style={styles.input} {...rest} />
     </View>
   );
 };
 
-export default TextInput;
+export default CustomTextInput;

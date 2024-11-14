@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { Text as RNText, TextProps } from 'react-native';
+import { Text, TextProps } from 'react-native';
 
 export type CustomTextProps = TextProps;
 
-const Text: FC<CustomTextProps> = (props) => {
-  return <RNText {...props} />;
+const CustomText: FC<CustomTextProps> = (props) => {
+  return <Text {...props} />;
 };
 
-export default Text;
+export default CustomText;

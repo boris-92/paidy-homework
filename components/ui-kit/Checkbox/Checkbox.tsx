@@ -2,8 +2,21 @@ import React, { FC } from 'react';
 
 import IconButton from '../IconButton/IconButton';
 
-const Checkbox: FC = () => {
-  return <IconButton name={'check'} />;
+import { COLORS } from '@/constants/Colors';
+
+type CheckboxProps = {
+  value: boolean;
+  onPress?: () => void;
+};
+
+const Checkbox: FC<CheckboxProps> = ({ value, onPress }) => {
+  return (
+    <IconButton
+      name={value ? 'check' : 'refresh'}
+      backgroundColor={value ? COLORS.SUCCESS : COLORS.DISABLED}
+      onPress={onPress}
+    />
+  );
 };
 
 export default Checkbox;

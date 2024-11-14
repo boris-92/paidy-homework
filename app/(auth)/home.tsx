@@ -1,32 +1,41 @@
 import React, { FC } from 'react';
-import { StyleSheet, View } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { useHeaderHeight } from '@react-navigation/elements';
-
-import Composer from '@/components/Composer/Composer';
+import Composer, { ComposerProps } from '@/components/Composer/Composer';
 import ListItem from '@/components/ListItem/ListItem';
+import List, { ListProps } from '@/components/List/List';
 
-const DATA = new Array(50).fill('Test').map((i) => ({ isChecked: false, title: i }));
+import useTodos, { Todo } from '@/hooks/useTodos';
 
-const styles = StyleSheet.create({
-  list: {
-    width: '100%',
-  },
-});
+const keyExtractor: ListProps<Todo>['keyExtractor'] = (item) => item.id;
 
 const Home: FC = () => {
-  const headerHeight = useHeaderHeight();
+  const { todos, addItem, toggleItem, removeItem } = useTodos();
+
+  const handleAddPress: ComposerProps['onAddPress'] = (title) => {
+    addItem(title);
+  };
+
+  const handleUpdatePress = () => {};
+
+  const handleListItemPress = () => {};
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Animated.FlatList
-        data={DATA}
-        renderItem={({ item }) => <ListItem isChecked={item.isChecked} title={item.title} />}
-        contentContainerStyle={{ paddingTop: headerHeight }}
-        style={styles.list}
+    <>
+      <List
+        data={todos}
+        renderItem={({ item }) => (
+          <ListItem
+            id={item.id}
+            isChecked={item.isChecked}
+            title={item.title}
+            onPress={handleListItemPress}
+            onCheckboxPress={toggleItem}
+            onDeletePress={removeItem}
+          />
+        )}
+        keyExtractor={keyExtractor}
       />
-      <Composer />
-    </View>
+      <Composer onAddPress={handleAddPress} onUpdatePress={handleUpdatePress} />
+    </>
   );
 };
 
