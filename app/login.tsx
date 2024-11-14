@@ -7,8 +7,6 @@ const Login: FC = () => {
   const handlePress = async () => {
     const res = await LocalAuthentication.authenticateAsync();
 
-    console.log('res', res);
-
     if (res.success) {
       router.replace('/home');
     }
