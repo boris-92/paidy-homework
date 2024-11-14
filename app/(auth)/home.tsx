@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import Composer, { ComposerProps } from '@/components/Composer/Composer';
 import ListItem, { ListItemProps } from '@/components/ListItem/ListItem';
@@ -11,6 +11,14 @@ const keyExtractor: ListProps<Todo>['keyExtractor'] = (item) => item.id;
 const Home: FC = () => {
   const { todos, addItem, toggleItem, updateItem, removeItem } = useTodos();
   const [editingItem, setEditingItem] = useState<Todo | undefined>();
+
+  const todoIds = useMemo(() => new Set(todos.map((item) => item.id)), [todos]);
+
+  useEffect(() => {
+    if (editingItem && !todoIds.has(editingItem.id)) {
+      setEditingItem(undefined);
+    }
+  }, [editingItem, todoIds]);
 
   const handleListItemPress: ListItemProps['onPress'] = useCallback((item) => {
     setEditingItem(item);
@@ -30,17 +38,6 @@ const Home: FC = () => {
     }
   };
 
-  const handleDeletePress: ListItemProps['onDeletePress'] = useCallback(
-    (id) => {
-      removeItem(id);
-
-      if (id === editingItem?.id) {
-        setEditingItem(undefined);
-      }
-    },
-    [removeItem, editingItem?.id],
-  );
-
   return (
     <>
       <List
@@ -52,7 +49,7 @@ const Home: FC = () => {
             title={item.title}
             onPress={handleListItemPress}
             onCheckboxPress={toggleItem}
-            onDeletePress={handleDeletePress}
+            onDeletePress={removeItem}
           />
         )}
         keyExtractor={keyExtractor}
