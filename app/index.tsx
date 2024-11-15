@@ -1,8 +1,10 @@
-import { Redirect } from 'expo-router';
 import React, { FC } from 'react';
+import { Redirect } from 'expo-router';
+
+import { useAuth } from '@/context/authContext';
 
 const Root: FC = () => {
-  const isAuthorized = false;
+  const { isAuthorized } = useAuth();
 
   return <Redirect href={isAuthorized ? '/home' : '/login'} />;
 };

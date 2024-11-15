@@ -1,13 +1,17 @@
-import { View, Text, Button } from 'react-native';
 import React, { FC } from 'react';
-import * as LocalAuthentication from 'expo-local-authentication';
-import { router } from 'expo-router';
+import { View, Text, Button } from 'react-native';
+import { useRouter } from 'expo-router';
+
+import { useAuth } from '@/context/authContext';
 
 const Login: FC = () => {
-  const handlePress = async () => {
-    const res = await LocalAuthentication.authenticateAsync();
+  const router = useRouter();
+  const { authenticate } = useAuth();
 
-    if (res.success) {
+  const handlePress = async () => {
+    const isSuccess = await authenticate();
+
+    if (isSuccess) {
       router.replace('/home');
     }
   };

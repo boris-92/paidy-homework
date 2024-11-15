@@ -7,7 +7,8 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+import { AuthProvider } from '@/context/authContext';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -28,12 +29,14 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={DefaultTheme}>
       <KeyboardProvider>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="login" />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
+        <AuthProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="login" />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style={'dark'} />
+        </AuthProvider>
       </KeyboardProvider>
     </ThemeProvider>
   );

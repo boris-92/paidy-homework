@@ -3,10 +3,11 @@ import { Redirect, Stack } from 'expo-router';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useAuth } from '@/context/authContext';
+
 const AuthLayout: FC = () => {
   const { bottom } = useSafeAreaInsets();
-
-  const isAuthorized = true;
+  const { isAuthorized } = useAuth();
 
   const containerStyle = useMemo(() => ({ flex: 1, paddingBottom: bottom }), [bottom]);
 
