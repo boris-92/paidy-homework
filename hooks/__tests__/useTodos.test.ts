@@ -12,7 +12,7 @@ describe('useTodos', () => {
   });
 
   it('should initialize with empty todos when persistence is disabled', () => {
-    const { result } = renderHook(() => useTodos({ isPersistanceEnabled: false }));
+    const { result } = renderHook(() => useTodos({ isPersistenceEnabled: false }));
 
     expect(result.current.todos).toEqual([]);
   });
@@ -22,7 +22,7 @@ describe('useTodos', () => {
 
     (storage.getItem as jest.Mock).mockResolvedValue(mockTodos);
 
-    const { result } = renderHook(() => useTodos({ isPersistanceEnabled: true }));
+    const { result } = renderHook(() => useTodos({ isPersistenceEnabled: true }));
 
     waitFor(() => {
       expect(result.current.todos).toEqual(mockTodos);
@@ -32,7 +32,7 @@ describe('useTodos', () => {
   });
 
   it('should add a todo', () => {
-    const { result } = renderHook(() => useTodos({ isPersistanceEnabled: false }));
+    const { result } = renderHook(() => useTodos({ isPersistenceEnabled: false }));
 
     act(() => result.current.addItem('New Todo'));
 
@@ -41,7 +41,7 @@ describe('useTodos', () => {
   });
 
   it('should remove a todo', () => {
-    const { result } = renderHook(() => useTodos({ isPersistanceEnabled: false }));
+    const { result } = renderHook(() => useTodos({ isPersistenceEnabled: false }));
 
     act(() => result.current.addItem('Todo to Delete'));
 
@@ -52,8 +52,40 @@ describe('useTodos', () => {
     expect(result.current.todos).toHaveLength(0);
   });
 
+  it('should toggle a todo', () => {
+    const { result } = renderHook(() => useTodos({ isPersistenceEnabled: false }));
+
+    act(() => {
+      result.current.addItem('Todo to Toggle');
+    });
+
+    const idToToggle = result.current.todos[0].id;
+
+    act(() => {
+      result.current.toggleItem(idToToggle);
+    });
+
+    expect(result.current.todos[0].isChecked).toBe(true);
+  });
+
+  it('should update a todo', () => {
+    const { result } = renderHook(() => useTodos({ isPersistenceEnabled: false }));
+
+    act(() => {
+      result.current.addItem('Todo to Update');
+    });
+
+    const idToUpdate = result.current.todos[0].id;
+
+    act(() => {
+      result.current.updateItem(idToUpdate, 'Updated Todo');
+    });
+
+    expect(result.current.todos[0].title).toBe('Updated Todo');
+  });
+
   it('should save todos to storage on change when persistence is enabled', async () => {
-    const { result } = renderHook(() => useTodos({ isPersistanceEnabled: true }));
+    const { result } = renderHook(() => useTodos({ isPersistenceEnabled: true }));
 
     act(() => result.current.addItem('Persistent Todo'));
 

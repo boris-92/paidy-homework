@@ -39,10 +39,10 @@ const todoReducer = (state: TodoState, action: TodoAction): TodoState => {
 };
 
 type UseTodosConfig = {
-  isPersistanceEnabled?: boolean;
+  isPersistenceEnabled?: boolean;
 };
 
-const useTodos = ({ isPersistanceEnabled = true }: UseTodosConfig = {}) => {
+const useTodos = ({ isPersistenceEnabled = true }: UseTodosConfig = {}) => {
   const [todos, dispatch] = useReducer<typeof todoReducer>(todoReducer, []);
 
   const addItem = useCallback((title: string) => {
@@ -62,7 +62,7 @@ const useTodos = ({ isPersistanceEnabled = true }: UseTodosConfig = {}) => {
   }, []);
 
   useEffect(() => {
-    if (isPersistanceEnabled) {
+    if (isPersistenceEnabled) {
       const loadTodos = async () => {
         const storedTodos = await storage.getItem<Todo[]>(StorageKeys.TODOS);
 
@@ -73,13 +73,13 @@ const useTodos = ({ isPersistanceEnabled = true }: UseTodosConfig = {}) => {
 
       loadTodos();
     }
-  }, [isPersistanceEnabled]);
+  }, [isPersistenceEnabled]);
 
   useEffect(() => {
-    if (isPersistanceEnabled) {
+    if (isPersistenceEnabled) {
       storage.setItem(StorageKeys.TODOS, todos);
     }
-  }, [todos, isPersistanceEnabled]);
+  }, [todos, isPersistenceEnabled]);
 
   return {
     todos,
