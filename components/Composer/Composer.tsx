@@ -53,7 +53,13 @@ const Composer: FC<ComposerProps> = ({ editingItem, onAddPress, onUpdatePress })
   return (
     <>
       <View style={styles.container}>
-        <TextInput ref={inputRef} value={inputText} onChangeText={handleChange} containerStyle={styles.input} />
+        <TextInput
+          ref={inputRef}
+          value={inputText}
+          onChangeText={handleChange}
+          containerStyle={styles.input}
+          testID={'composer-input-field'}
+        />
         <IconButton name={editingItem ? 'refresh' : 'plus'} onPress={handleButtonPress} disabled={isDisabled} />
       </View>
       <Animated.View style={keyboardOffsetViewStyles} />

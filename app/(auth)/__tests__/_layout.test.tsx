@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Redirect, Stack } from 'expo-router';
 
 import { useAuth } from '@/context/authContext';
@@ -17,19 +16,13 @@ jest.mock('expo-router', () => ({
   ),
 }));
 
-jest.mock('react-native-safe-area-context', () => ({
-  useSafeAreaInsets: jest.fn(),
-}));
-
 jest.mock('@/context/authContext', () => ({
   useAuth: jest.fn(),
 }));
 
-describe('AuthLayout', () => {
+describe('<AuthLayout />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-
-    (useSafeAreaInsets as jest.Mock).mockReturnValue({ bottom: 10 });
   });
 
   it('should redirect to login if not authorized', () => {
