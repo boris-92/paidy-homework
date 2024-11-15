@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useAuth } from '@/context/authContext';
 
+import { IS_IOS } from '@/utils/device';
+
 const AuthLayout: FC = () => {
   const { bottom } = useSafeAreaInsets();
   const { isAuthorized } = useAuth();
@@ -22,7 +24,7 @@ const AuthLayout: FC = () => {
           name="home"
           options={{
             title: 'ToDo:',
-            headerTransparent: true,
+            headerTransparent: IS_IOS,
             headerBlurEffect: 'regular',
           }}
         />
