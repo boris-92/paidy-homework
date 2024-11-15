@@ -15,6 +15,7 @@ const Checkbox: FC<CheckboxProps> = ({ value, onPress }) => {
       name={value ? 'check' : 'minus'}
       backgroundColor={value ? COLORS.SUCCESS : COLORS.DISABLED}
       onPress={onPress}
+      testID={'checkbox'}
     />
   );
 };

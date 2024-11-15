@@ -32,7 +32,12 @@ const ListItem: FC<ListItemProps> = ({ id, isChecked, title, onPress, onCheckbox
         <Text style={styles.text} numberOfLines={1}>
           {title}
         </Text>
-        <IconButton name={'close'} backgroundColor={COLORS.ERROR} onPress={() => onDeletePress(id)} />
+        <IconButton
+          name={'close'}
+          backgroundColor={COLORS.ERROR}
+          onPress={() => onDeletePress(id)}
+          testID={'delete-button'}
+        />
       </View>
     </TouchableOpacity>
   );

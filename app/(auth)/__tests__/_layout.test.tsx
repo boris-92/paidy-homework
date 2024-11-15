@@ -9,8 +9,12 @@ import AuthLayout from '../_layout';
 
 jest.mock('expo-router', () => ({
   Redirect: jest.fn(() => null),
-  Stack: jest.fn(() => null),
-  StackScreen: jest.fn(() => null),
+  Stack: Object.assign(
+    jest.fn(() => null),
+    {
+      Screen: jest.fn(() => null),
+    },
+  ),
 }));
 
 jest.mock('react-native-safe-area-context', () => ({
